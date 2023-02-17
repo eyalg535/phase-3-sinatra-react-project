@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       user.to_json
     end
   
-    post '/users' do # Make sure front end requests are nested objects similar to the nested hashes in Ruby
+    post '/users' do 
       user = User.new(params[:user])
       if user.save
         user.to_json
