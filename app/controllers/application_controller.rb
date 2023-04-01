@@ -70,8 +70,8 @@ class ApplicationController < Sinatra::Base
   end
 # Get all categories
   get "/categories" do
-    categories = Category.all
-    categories.to_json
+    categories = Category.all.includes(:tasks)
+    categories.to_json(include: :tasks)
   end
 # Get category by id
   get "/categories/:id" do
@@ -84,7 +84,7 @@ class ApplicationController < Sinatra::Base
     if category.update(params[:category])
       category.to_json
     else
-      { errors: CategoriesController.errors.full_messages }
+      { errors: category.errors.full_messages }
     end
   end
 end
